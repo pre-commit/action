@@ -1,0 +1,9 @@
+name: pre-commit
+description: run pre-commit and optionally commit back to the pull request
+inputs:
+  token:
+    description: github token to clone / push with
+    required: false
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

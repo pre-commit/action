@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "dependencies": {
+    "@actions/core": "^1.2.0",
+    "@actions/exec": "^1.0.1",
+    "@actions/github": "^1.1.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 2017
+    },
+    "env": {
+      "node": true
+    }
+  }
+}
