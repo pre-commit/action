@@ -11,6 +11,8 @@ To use this action, make a file `.github/workflows/pre-commit.yml`.  Here's a
 template to get started:
 
 ```yaml
+name: pre-commit
+
 on:
   pull_request:
   push:
