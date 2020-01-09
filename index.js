@@ -17,7 +17,8 @@ async function main() {
     });
 
     const token = core.getInput('token');
-    const push = !!token;
+    const pr = github.context.payload.pull_request;
+    const push = !!token && !!pr;
     const ret = await exec.exec('pre-commit', ARGS, {ignoreReturnCode: push});
     if (ret && push) {
         // actions do not run on pushes made by actions.
@@ -35,11 +36,10 @@ async function main() {
                     'git', ['config', 'user.email', 'pre-commit@example.com']
                 );
 
-                const branch = github.context.payload.pull_request.head.ref;
+                const branch = pr.head.ref;
                 await exec.exec('git', ['checkout', 'HEAD', '-b', branch]);
 
                 await exec.exec('git', ['commit', '-am', 'pre-commit fixes']);
-                const pr = github.context.payload.pull_request;
                 const url = addToken(pr.head.repo.clone_url, token);
                 await exec.exec('git', ['remote', 'set-url', 'origin', url]);
                 await exec.exec('git', ['push', 'origin', 'HEAD']);
