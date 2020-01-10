@@ -30,7 +30,7 @@ jobs:
       with:
         path: ~/.cache/pre-commit
         key: pre-commit|${{ env.PY }}|${{ hashFiles('.pre-commit-config.yaml') }}
-    - uses: pre-commit/action@v1.0.0
+    - uses: pre-commit/action@v1.0.1
 ```
 
 This does a few things:
@@ -51,7 +51,7 @@ here's an example configuration for that (use the template above except for the
 `pre-commit` action):
 
 ```yaml
-    - uses: pre-commit/action@v1.0.0
+    - uses: pre-commit/action@v1.0.1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 ```
