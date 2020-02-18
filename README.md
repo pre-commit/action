@@ -25,7 +25,7 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-python@v1
     - name: set PY
-      run: echo "::set-env name=PY::$(python --version --version | sha256sum | cut -d' ' -f1)"
+      run: echo "::set-env name=PY::$(python --version | sha256sum | cut -d' ' -f1)"
     - uses: actions/cache@v1
       with:
         path: ~/.cache/pre-commit
