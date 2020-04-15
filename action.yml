@@ -4,6 +4,12 @@ inputs:
   token:
     description: github token to clone / push with
     required: false
+  source:
+    description: The remote branch's commit_id when using `git push`.
+    required: false
+  origin:
+    description: The origin branch's commit_id when using `git push`.
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'
