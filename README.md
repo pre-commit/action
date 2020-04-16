@@ -1,11 +1,11 @@
 [![Build Status](https://github.com/pre-commit/action/workflows/deploy/badge.svg)](https://github.com/pre-commit/action/actions)
 
-pre-commit/action
-=================
+# pre-commit/action
+
 
 a GitHub action to run [pre-commit](https://pre-commit.com)
 
-### using this action
+## Usage
 
 To use this action, make a file `.github/workflows/pre-commit.yml`.  Here's a
 template to get started:
@@ -41,13 +41,13 @@ This does a few things:
 
 Hopefully in the future when `actions` matures the yaml can be simplified.
 
-### using this action in private repositories
+### Support for Private Repositories
 
-this action also provides an additional behaviour when used in private
-repositories.  when configured with a github token, the action will push back
+This action also provides an additional behaviour when used in private
+repositories. When configured with a GitHub token, the action will push back
 fixes to the pull request branch.
 
-here's an example configuration for that (use the template above except for the
+Here's an example configuration for that (use the template above except for the
 `pre-commit` action):
 
 ```yaml
@@ -56,10 +56,24 @@ here's an example configuration for that (use the template above except for the
         token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-note that `secrets.GITHUB_TOKEN` is automatically provisioned and will not
+Note that `secrets.GITHUB_TOKEN` is automatically provisioned and will not
 require any special configuration.
 
-while you could _technically_ configure this for a public repository (using a
+While you could _technically_ configure this for a public repository (using a
 personal access token), I can't think of a way to do this safely without
 exposing a privileged token to pull requests -- if you have any ideas, please
 leave an issue!
+
+### Commit Range
+
+In situations where you would like to check only files modified in the pull request
+you can specify the commit range using `source` for base reference sha and `origin`
+for head reference sha.
+
+```yaml
+    - uses: jirikuncar/action@release  # change to pre-commit/action@release after merging this PR
+      with:
+        source: ${{ github.event.pull_request.base.sha }}
+        origin: ${{ github.event.pull_request.head.sha }}
+```
+
