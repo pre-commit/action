@@ -4,6 +4,14 @@ inputs:
   token:
     description: github token to clone / push with
     required: false
+  changed:
+    description: only run against changed files in this commit.  requires advanced checkout.
+    required: false
+    default: "false"
+  base:
+    description: base git ref for 'changed' parameter.  requires advanced checkout.
+    required: false
+    default: "master"
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"
