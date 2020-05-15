@@ -41,6 +41,20 @@ This does a few things:
 
 Hopefully in the future when `actions` matures the yaml can be simplified.
 
+### using this action with custom invocations
+
+By default, this action runs all the hooks against all the files.  `extra_args`
+lets users specify a single hook id and/or options to pass to `pre-commit run`.
+
+Here's a sample step configuration that only runs the `flake8` hook against all
+the files (use the template above except for the `pre-commit` action):
+
+```yaml
+    - uses: pre-commit/action@v1.0.1
+      with:
+        extra_args: flake8 --all-files
+```
+
 ### using this action in private repositories
 
 this action also provides an additional behaviour when used in private

@@ -1,6 +1,10 @@
 name: pre-commit
 description: run pre-commit and optionally commit back to the pull request
 inputs:
+  extra_args:
+    description: options to pass to pre-commit run
+    required: false
+    default: '--all-files'
   token:
     description: github token to clone / push with
     required: false
