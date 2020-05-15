@@ -30,7 +30,7 @@ jobs:
       with:
         path: ~/.cache/pre-commit
         key: pre-commit|${{ env.PY }}|${{ hashFiles('.pre-commit-config.yaml') }}
-    - uses: pre-commit/action@v1.0.1
+    - uses: pre-commit/action@v1.1.0
 ```
 
 This does a few things:
@@ -50,7 +50,7 @@ Here's a sample step configuration that only runs the `flake8` hook against all
 the files (use the template above except for the `pre-commit` action):
 
 ```yaml
-    - uses: pre-commit/action@v1.0.1
+    - uses: pre-commit/action@v1.1.0
       with:
         extra_args: flake8 --all-files
 ```
@@ -65,7 +65,7 @@ here's an example configuration for that (use the template above except for the
 `pre-commit` action):
 
 ```yaml
-    - uses: pre-commit/action@v1.0.1
+    - uses: pre-commit/action@v1.1.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 ```
