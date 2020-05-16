@@ -11,6 +11,10 @@ To use this action, make a file `.github/workflows/pre-commit.yml`.  Here's a
 template to get started:
 
 ```yaml
+# SPDX-FileCopyrightText: Copyright (c) 2019 Anthony Sottile
+#
+# SPDX-License-Identifier: MIT
+
 name: pre-commit
 
 on:
