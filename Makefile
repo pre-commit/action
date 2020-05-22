@@ -21,4 +21,4 @@ dist/index.js: index.js node_modules
 push: venv
 	venv/bin/markdown-to-presentation push \
 		--pages-branch release \
-		README.md action.yml dist/index.js
+		README.md LICENSE action.yml dist/index.js
