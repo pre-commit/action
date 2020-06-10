@@ -1,9 +1,9 @@
 {
   "private": true,
   "dependencies": {
-    "@actions/core": "^1.2.0",
-    "@actions/exec": "^1.0.1",
-    "@actions/github": "^1.1.0"
+    "@actions/core": "*",
+    "@actions/exec": "*",
+    "@actions/github": "*"
   },
   "devDependencies": {
     "webpack": "^4.41.2",
