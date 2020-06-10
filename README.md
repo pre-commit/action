@@ -50,7 +50,7 @@ Here's a sample step configuration that only runs the `flake8` hook against all
 the files (use the template above except for the `pre-commit` action):
 
 ```yaml
-    - uses: pre-commit/action@v1.1.0
+    - uses: pre-commit/action@v1.1.1
       with:
         extra_args: flake8 --all-files
 ```
