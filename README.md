@@ -24,7 +24,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-python@v1
-    - uses: pre-commit/action@v1.1.1
+    - uses: pre-commit/action@v2.0.0
 ```
 
 This does a few things:
@@ -44,7 +44,7 @@ Here's a sample step configuration that only runs the `flake8` hook against all
 the files (use the template above except for the `pre-commit` action):
 
 ```yaml
-    - uses: pre-commit/action@v1.1.1
+    - uses: pre-commit/action@v2.0.0
       with:
         extra_args: flake8 --all-files
 ```
@@ -59,7 +59,7 @@ here's an example configuration for that (use the template above except for the
 `pre-commit` action):
 
 ```yaml
-    - uses: pre-commit/action@v1.1.1
+    - uses: pre-commit/action@v2.0.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
 ```
