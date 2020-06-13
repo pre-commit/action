@@ -51,9 +51,11 @@ async function main() {
     const cachePaths = [path.join(os.homedir(), '.cache', 'pre-commit')];
     const py = getPythonVersion();
     const cacheKey = `pre-commit-2-${hashString(py)}-${hashFile('.pre-commit-config.yaml')}`;
-    await cache.restoreCache(cachePaths, cacheKey);
+    const restored = await cache.restoreCache(cachePaths, cacheKey);
     const ret = await exec.exec('pre-commit', args, {ignoreReturnCode: push});
-    await cache.saveCache(cachePaths, cacheKey);
+    if (!restored) {
+        await cache.saveCache(cachePaths, cacheKey);
+    }
 
     if (ret && push) {
         // actions do not run on pushes made by actions.
