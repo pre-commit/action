@@ -33,8 +33,6 @@ This does a few things:
 - installs python
 - sets up the `pre-commit` cache
 
-Hopefully in the future when `actions` matures the yaml can be simplified.
-
 ### using this action with custom invocations
 
 By default, this action runs all the hooks against all the files.  `extra_args`
