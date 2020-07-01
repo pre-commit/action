@@ -8,6 +8,10 @@ inputs:
   token:
     description: github token to clone / push with
     required: false
+  commit_message:
+    description: commit message when fixes are made
+    required: false
+    default: 'pre-commit fixes'
 runs:
   using: 'node12'
   main: 'dist/index.js'

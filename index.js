@@ -53,6 +53,7 @@ async function main() {
     const cacheKey = `pre-commit-2-${hashString(py)}-${hashFile('.pre-commit-config.yaml')}`;
     const restored = await cache.restoreCache(cachePaths, cacheKey);
     const ret = await exec.exec('pre-commit', args, {ignoreReturnCode: push});
+    const commitMessage = core.getInput('commit_message');
     if (!restored) {
         await cache.saveCache(cachePaths, cacheKey);
     }
@@ -76,7 +77,7 @@ async function main() {
                 const branch = pr.head.ref;
                 await exec.exec('git', ['checkout', 'HEAD', '-b', branch]);
 
-                await exec.exec('git', ['commit', '-am', 'pre-commit fixes']);
+                await exec.exec('git', ['commit', '-am', commitMessage]);
                 const url = addToken(pr.head.repo.clone_url, token);
                 await exec.exec('git', ['remote', 'set-url', 'origin', url]);
                 await exec.exec('git', ['push', 'origin', 'HEAD']);

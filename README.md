@@ -69,3 +69,15 @@ while you could _technically_ configure this for a public repository (using a
 personal access token), I can't think of a way to do this safely without
 exposing a privileged token to pull requests -- if you have any ideas, please
 leave an issue!
+
+
+### using this action with a custom commit message for fixes
+
+By default, fixes would be have a commit message of `pre-commit fixes`.
+A custom commit message can be added with the following configuration.
+
+```yaml
+    - uses: pre-commit/action@v2.0.0
+      with:
+        commit_message: "Custom commit message"
+```
