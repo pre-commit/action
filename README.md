@@ -53,8 +53,18 @@ this action also provides an additional behaviour when used in private
 repositories.  when configured with a github token, the action will push back
 fixes to the pull request branch.
 
-here's an example configuration for that (use the template above except for the
-`pre-commit` action):
+using the template above, you'll make two replacements for individual actions:
+
+first is the checkout step, which needs to use unlimited fetch depth for
+pushing
+
+```yaml
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+```
+
+next is passing the token to the pre-commit action
 
 ```yaml
     - uses: pre-commit/action@v2.0.0
