@@ -29,7 +29,7 @@ jobs:
 
 This will:
 
-- clones the code
+- clone the code
 - install python
 - run pre-commit using this action!
 
