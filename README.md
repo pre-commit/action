@@ -27,11 +27,11 @@ jobs:
     - uses: pre-commit/action@v2.0.0
 ```
 
-This does a few things:
+This will:
 
 - clones the code
-- installs python
-- sets up the `pre-commit` cache
+- install python
+- run pre-commit using this action!
 
 ### using this action with custom invocations
 
