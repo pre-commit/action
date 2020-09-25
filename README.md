@@ -75,7 +75,31 @@ next is passing the token to the pre-commit action
 note that `secrets.GITHUB_TOKEN` is automatically provisioned and will not
 require any special configuration.
 
-while you could _technically_ configure this for a public repository (using a
-personal access token), I can't think of a way to do this safely without
-exposing a privileged token to pull requests -- if you have any ideas, please
-leave an issue!
+### using this action to push to public repository pull requests
+
+This action can push to pull requests in public repositories using the [`pull_request_target`](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#pull_request_target).
+Remember that code in a public PR may be untrusted.
+
+```yaml
+name: pre-commit
+
+on:
+
+  pull_request_target:
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          # Use sha instead of ref because pre-commit attempts to checkout a branch with the same name
+          # https://github.com/pre-commit/action/blob/20242c769824ac7e54269ee9242da5bfae19c1c8/index.js#L77
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v2
+      - uses: pre-commit/action@v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
