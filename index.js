@@ -78,8 +78,7 @@ async function main() {
 
                 await exec.exec('git', ['commit', '-am', 'pre-commit fixes']);
                 const url = addToken(pr.head.repo.clone_url, token);
-                await exec.exec('git', ['remote', 'set-url', 'origin', url]);
-                await exec.exec('git', ['push', 'origin', 'HEAD']);
+                await exec.exec('git', ['push', url, 'HEAD']);
             });
         }
     }
