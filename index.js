@@ -54,7 +54,20 @@ async function main() {
     const restored = await cache.restoreCache(cachePaths, cacheKey);
     const ret = await exec.exec('pre-commit', args, {ignoreReturnCode: push});
     if (!restored) {
-        await cache.saveCache(cachePaths, cacheKey);
+        try {
+            await cache.saveCache(cachePaths, cacheKey);
+        } catch (e) {
+            core.warning(
+                `There was an error saving the pre-commit environments to cache:
+
+                ${e.message || e}
+
+                This only has performance implications and won't change the result of your pre-commit tests.
+                If this problem persists on your default branch, you can try to fix it by editing your '.pre-commit-config.yaml'.
+                For example try to run 'pre-commit autoupdate' or simply add a blank line.
+                This will result in a different hash value and thus a different cache target.`.replace(/^ +/gm, '')
+            );
+        }
     }
 
     if (ret && push) {
