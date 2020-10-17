@@ -3,12 +3,13 @@
 pre-commit/action
 =================
 
-a GitHub action to run [pre-commit](https://pre-commit.com)
+A GitHub action to run [pre-commit](https://pre-commit.com)
 
-### using this action
+## How to
 
-To use this action, make a file `.github/workflows/pre-commit.yml`.  Here's a
-template to get started:
+### Setup
+
+To use this action, make a file `.github/workflows/pre-commit.yml`.  The following template will get you started:
 
 ```yaml
 name: pre-commit
@@ -29,11 +30,11 @@ jobs:
 
 This does a few things:
 
-- clones the code
-- installs python
-- sets up the `pre-commit` cache
+- Clones the code
+- Installs python
+- Sets up the `pre-commit` cache
 
-### using this action with custom invocations
+### With custom invocations
 
 By default, this action runs all the hooks against all the files.  `extra_args`
 lets users specify a single hook id and/or options to pass to `pre-commit run`.
@@ -47,16 +48,16 @@ the files (use the template above except for the `pre-commit` action):
         extra_args: flake8 --all-files
 ```
 
-### using this action in private repositories
+### In private repositories
 
-this action also provides an additional behaviour when used in private
-repositories.  when configured with a github token, the action will push back
+This action also provides an additional behaviour when used in private
+repositories. When configured with a GitHub token, the action will push back
 fixes to the pull request branch.
 
-using the template above, you'll make two replacements for individual actions:
+Using the template above, you'll need to make two replacements for individual actions:
 
-first is the checkout step, which needs to use unlimited fetch depth for
-pushing
+First is the checkout step, which needs to use unlimited fetch depth for
+pushing:
 
 ```yaml
     - uses: actions/checkout@v2
@@ -64,7 +65,7 @@ pushing
         fetch-depth: 0
 ```
 
-next is passing the token to the pre-commit action
+Next is passing the token to the pre-commit action:
 
 ```yaml
     - uses: pre-commit/action@v2.0.0
@@ -72,10 +73,10 @@ next is passing the token to the pre-commit action
         token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-note that `secrets.GITHUB_TOKEN` is automatically provisioned and will not
+Note that `secrets.GITHUB_TOKEN` is [automatically provisioned](https://docs.github.com/en/free-pro-team@latest/actions/reference/authentication-in-a-workflow#about-the-github_token-secret) and will not
 require any special configuration.
 
-while you could _technically_ configure this for a public repository (using a
+While you could _technically_ configure this for a public repository (using a
 personal access token), I can't think of a way to do this safely without
-exposing a privileged token to pull requests -- if you have any ideas, please
-leave an issue!
+exposing a privileged token to pull requests – If you have any ideas, please
+leave an [issue](https://github.com/pre-commit/action/issues)!
