@@ -41,9 +41,9 @@ By default, this action runs all the hooks against all the files.  `extra_args` 
 Here's a sample step configuration that only runs the `flake8` hook against all the files (use the template above except for the `pre-commit` action):
 
 ```yaml
-    - uses: pre-commit/action@v2.0.0
-      with:
-        extra_args: flake8 --all-files
+- uses: pre-commit/action@v2.0.0
+  with:
+    extra_args: flake8 --all-files
 ```
 
 ### In private repositories
