@@ -46,7 +46,6 @@ Here's a sample step configuration that only runs the `flake8` hook against all 
         extra_args: flake8 --all-files
 ```
 
-
 ### In private repositories
 
 This action also provides an additional behaviour when used in private repositories. When configured with a GitHub token, the action will push back fixes to the pull request branch.
