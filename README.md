@@ -55,17 +55,17 @@ Using the template above, you'll need to make two replacements for individual ac
 First is the checkout step, which needs to use unlimited fetch depth for pushing:
 
 ```yaml
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
+- uses: actions/checkout@v2
+  with:
+    fetch-depth: 0
 ```
 
 Next is passing the token to the `pre-commit` action:
 
 ```yaml
-    - uses: pre-commit/action@v2.0.0
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+- uses: pre-commit/action@v2.0.0
+  with:
+    token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 Note that `secrets.GITHUB_TOKEN` is [automatically provisioned](https://docs.github.com/en/free-pro-team@latest/actions/reference/authentication-in-a-workflow#about-the-github_token-secret) and will not
@@ -79,32 +79,32 @@ While you could _technically_ configure this for a public repository (using a pe
 
 1. The _push back_ behaviour is only enabled for pull requests, not for pushes directly to branches.
 
-  Make sure that your `.github/workflows/pre-commit.yml` contains at least:
+    Make sure that your `.github/workflows/pre-commit.yml` contains at least:
 
-  ```YAML
-  on:  
-    pull_request:
-  ```
+    ```YAML
+    on:  
+      pull_request:
+    ```
 
 2. Your pre-commit actions contain a conflict.
 
-  If `pre-commit` fails on the second invocation it can't push to the branch because GitHub actions does not fire on pushes made by GitHub actions, so it marks the job as failed.
+    If `pre-commit` fails on the second invocation it can't push to the branch because GitHub actions does not fire on pushes made by GitHub actions, so it marks the job as failed.
 
-  _For example:_ Using both `double-quote-string-fixer` and `black` will cause the action to fail since both will format strings differently (Unless you pass `-S [skip-string-normalization]` to `black`) and will prevent them from reaching an agreement.
+    _For example:_ Using both `double-quote-string-fixer` and `black` will cause the action to fail since both will format strings differently (Unless you pass `-S [skip-string-normalization]` to `black`) and will prevent them from reaching an agreement.
 
 ### Actions cannot write to file.
 
 1. This happens when the action is trying to change a workflow file and is prohibited by [GitHub](https://github.community/t/refusing-to-allow-an-integration-to-create-or-update/16326/2).
 
-  **Example error:**
-  ```bash
-  ! [remote rejected] HEAD -> test (refusing to allow a GitHub App to create or update workflow `.github/workflows/pre-commit.yml` without `workflows` permission)
-  ```
+    **Example error:**
+    ```bash
+    ! [remote rejected] HEAD -> test (refusing to allow a GitHub App to create or update workflow `.github/workflows/pre-commit.yml` without `workflows` permission)
+    ```
 
- **Fix:**
- Exclude the workflow file from the action through top level [`exclude`](https://pre-commit.com/#top_level-exclude) or hook level [`exclude`](https://pre-commit.com/#config-exclude).
+    **Fix:**
+    Exclude the workflow file from the action through top level [`exclude`](https://pre-commit.com/#top_level-exclude) or hook level [`exclude`](https://pre-commit.com/#config-exclude).
 
- **Example regex** (For top level excluding, to be added to `.pre-commit-config.yaml`):
- ```YAML
- exclude: '.github/workflows/.*?\.yml'
- ```
+    **Example regex** (For top level excluding, to be added to `.pre-commit-config.yaml`):
+    ```YAML
+    exclude: '.github/workflows/.*?\.yml'
+    ```
