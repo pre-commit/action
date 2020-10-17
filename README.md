@@ -84,7 +84,7 @@ While you could _technically_ configure this for a public repository (using a pe
   ```YAML
   on:  
     pull_request:
-    ```
+  ```
 
 2. Your pre-commit actions contain a conflict.
 
