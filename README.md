@@ -82,7 +82,7 @@ While you could _technically_ configure this for a public repository (using a pe
     Make sure that your `.github/workflows/pre-commit.yml` contains at least:
 
     ```YAML
-    on:  
+    on:
       pull_request:
     ```
 
