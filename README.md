@@ -3,7 +3,7 @@
 pre-commit/action
 =================
 
-A GitHub action to run [pre-commit](https://pre-commit.com)
+A GitHub action to run [pre-commit](https://pre-commit.com).
 
 ## How to
 
@@ -75,27 +75,36 @@ While you could _technically_ configure this for a public repository (using a pe
 
 ## Troubleshooting
 
-1. Changes aren't commited.
-    1. The _push back_ behaviour is only enabled for pull requests, not for pushes directly to branches.
-      Make sure that your `.github/workflows/pre-commit.yml` contains at least
+### Changes aren't commited.
 
-        ```YAML
-          on:  
-            pull_request: 
-        ```
+1. The _push back_ behaviour is only enabled for pull requests, not for pushes directly to branches.
 
-    2. Your pre-commit actions contain a conflict. 
-      If `pre-commit` fails on the second invocation it can't push to the branch because GitHub actions does not fire on pushes made by GitHub actions – So instead it marks the job as failed.
-      _Example:_ Running `double-quote-string-fixer` and `black` will cause the action to fail since both will format strings differently (Unless you pass `-S [skip-string-normalization]` to `black`) and will prevent them from reaching an agreement.
-2. Actions cannot write to file.
-  **Error**: 
-    ```bash
-    ! [remote rejected] HEAD -> test (refusing to allow a GitHub App to create or update workflow `.github/workflows/pre-commit.yml` without `workflows` permission)
-    ```
-  This happens when the action is trying to change a workflow file and is prohibited by [GitHub](https://github.community/t/refusing-to-allow-an-integration-to-create-or-update/16326/2).
-  **Fix:**
-  Exclude the workflow file from the action through top level [`exclude`](https://pre-commit.com/#top_level-exclude) or hook level [`exclude`](https://pre-commit.com/#config-exclude).
-  **Example regex for top level**
+  Make sure that your `.github/workflows/pre-commit.yml` contains at least:
+
   ```YAML
-  exclude: '.github/workflows/.*?\.yml'
-  ``
+  on:  
+    pull_request:
+    ```
+
+2. Your pre-commit actions contain a conflict.
+
+  If `pre-commit` fails on the second invocation it can't push to the branch because GitHub actions does not fire on pushes made by GitHub actions, so it marks the job as failed.
+
+  _For example:_ Using both `double-quote-string-fixer` and `black` will cause the action to fail since both will format strings differently (Unless you pass `-S [skip-string-normalization]` to `black`) and will prevent them from reaching an agreement.
+
+### Actions cannot write to file.
+
+1. This happens when the action is trying to change a workflow file and is prohibited by [GitHub](https://github.community/t/refusing-to-allow-an-integration-to-create-or-update/16326/2).
+
+  **Example error:**
+  ```bash
+  ! [remote rejected] HEAD -> test (refusing to allow a GitHub App to create or update workflow `.github/workflows/pre-commit.yml` without `workflows` permission)
+  ```
+
+ **Fix:**
+ Exclude the workflow file from the action through top level [`exclude`](https://pre-commit.com/#top_level-exclude) or hook level [`exclude`](https://pre-commit.com/#config-exclude).
+
+ **Example regex** (For top level excluding, to be added to `.pre-commit-config.yaml`):
+ ```YAML
+ exclude: '.github/workflows/.*?\.yml'
+ ```
