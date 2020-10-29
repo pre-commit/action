@@ -1,3 +1,4 @@
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/pre-commit/action/master.svg)](https://results.pre-commit.ci/latest/github/pre-commit/action/master)
 [![Build Status](https://github.com/pre-commit/action/workflows/deploy/badge.svg)](https://github.com/pre-commit/action/actions)
 
 pre-commit/action
