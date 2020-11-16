@@ -1,13 +1,13 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.5.0
+    rev: v3.3.0
     hooks:
     -   id: check-json
     -   id: check-yaml
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
 -   repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v7.0.0
+    rev: v7.13.0-1
     hooks:
     -   id: eslint
         args: [--fix]
