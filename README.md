@@ -48,6 +48,33 @@ the files (use the template above except for the `pre-commit` action):
         extra_args: flake8 --all-files
 ```
 
+### only check files that have changed
+
+`actions/checkout@v2` does a shallow clone by default which means pre-commit
+doesn't have enough Git history to determine which files have changed in order
+to only check them. So you need to expand the history yourself after the
+checkout action has run.
+
+This can be done effectively by getting a blobless clone with:
+```yaml
+    - uses: actions/checkout@v2
+    - name: Expand Git history
+      run: |
+        # Tell Git we want a blobless clone,
+        # which excludes file contents of historical commits making the cloning much faster.
+        git config remote.origin.partialclonefilter blob:none
+
+        # Then fetch the history of the repository, skip tags since we don't need them.
+        git fetch --unshallow --no-tags
+```
+
+and you can then configure pre-commit to run with:
+```yaml
+    - uses: pre-commit/action@v2.0.0
+      with:
+        extra_args: --from-ref ${{ github.event.pull_request.base.sha }} --to-ref HEAD
+```
+
 ### using this action in private repositories
 
 this action also provides an additional behaviour when used in private
