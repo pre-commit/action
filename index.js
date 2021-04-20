@@ -87,7 +87,7 @@ async function main() {
                 );
 
                 const branch = pr.head.ref;
-                await exec.exec('git', ['checkout', 'HEAD', '-b', branch]);
+                await exec.exec('git', ['checkout', 'HEAD', '-B', branch]);
 
                 await exec.exec('git', ['commit', '-am', 'pre-commit fixes']);
                 const url = addToken(pr.head.repo.clone_url, token);
