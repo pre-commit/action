@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
     - uses: actions/setup-python@v1
-    - run: pip install virtualenv
+    - run: python3 -m pip install virtualenv
     - run: make
     - name: self test newly built action
       uses: ./
