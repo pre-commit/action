@@ -28,8 +28,8 @@ function hashFile(filePath) {
     return hashString(fs.readFileSync(filePath).toString());
 }
 
-function addToken(url, token) {
-    return url.replace(/^https:\/\//, `https://x-access-token:${token}@`);
+function addToken(token, repository) {
+    return `https://${token}@github.com/${repository}`;
 }
 
 async function main() {
@@ -44,6 +44,7 @@ async function main() {
         '--color=always',
         ...tr.argStringToArray(core.getInput('extra_args')),
     ];
+    const repository = `${github.context.repo.owner}/${github.context.repo.repo}`;
     const token = core.getInput('token');
     const pr = github.context.payload.pull_request;
     const push = !!token && !!pr;
@@ -77,7 +78,7 @@ async function main() {
                 await exec.exec('git', ['checkout', 'HEAD', '-b', branch]);
 
                 await exec.exec('git', ['commit', '-am', 'pre-commit fixes']);
-                const url = addToken(pr.head.repo.clone_url, token);
+                const url = addToken(repository, token);
                 await exec.exec('git', ['push', url, 'HEAD']);
             });
         }
