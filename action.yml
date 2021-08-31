@@ -8,6 +8,15 @@ inputs:
   token:
     description: github token to clone / push with
     required: false
+  git_user_name:
+    description: github user name to push with
+    required: false
+    default: 'pre-commit'
+  git_user_email:
+    description: github user email to push with
+    required: false
+    default: 'pre-commit@example.com'
+
 runs:
   using: 'node12'
   main: 'dist/index.js'
