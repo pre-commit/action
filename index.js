@@ -45,6 +45,8 @@ async function main() {
         ...tr.argStringToArray(core.getInput('extra_args')),
     ];
     const token = core.getInput('token');
+    const git_user_name = core.getInput('git_user_name');
+    const git_user_email = core.getInput('git_user_email');
     const pr = github.context.payload.pull_request;
     const push = !!token && !!pr;
 
@@ -81,9 +83,9 @@ async function main() {
         );
         if (diff) {
             await core.group('push fixes', async () => {
-                await exec.exec('git', ['config', 'user.name', 'pre-commit']);
+                await exec.exec('git', ['config', 'user.name', git_user_name]);
                 await exec.exec(
-                    'git', ['config', 'user.email', 'pre-commit@example.com']
+                    'git', ['config', 'user.email', git_user_email]
                 );
 
                 const branch = pr.head.ref;
