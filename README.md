@@ -7,7 +7,7 @@ Please switch to using [pre-commit.ci] which is faster and has more features.
 
 ___
 
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/pre-commit/action/master.svg)](https://results.pre-commit.ci/latest/github/pre-commit/action/master)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/pre-commit/action/main.svg)](https://results.pre-commit.ci/latest/github/pre-commit/action/main)
 [![Build Status](https://github.com/pre-commit/action/workflows/deploy/badge.svg)](https://github.com/pre-commit/action/actions)
 
 pre-commit/action
@@ -26,7 +26,7 @@ name: pre-commit
 on:
   pull_request:
   push:
-    branches: [master]
+    branches: [main]
 
 jobs:
   pre-commit:
