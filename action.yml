@@ -9,5 +9,5 @@ inputs:
     description: github token to clone / push with
     required: false
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
