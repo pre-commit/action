@@ -1,13 +1,20 @@
 name: pre-commit
-description: run pre-commit and optionally commit back to the pull request
+description: run pre-commit
 inputs:
   extra_args:
     description: options to pass to pre-commit run
     required: false
     default: '--all-files'
-  token:
-    description: github token to clone / push with
-    required: false
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: composite
+  steps:
+  - run: python -m pip install pre-commit
+    shell: bash
+  - run: python -m pip freeze --local
+    shell: bash
+  - uses: actions/cache@v3
+    with:
+      path: ~/.cache/pre-commit
+      key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
+  - run: pre-commit run --show-diff-on-failure --color=always ${{ inputs.extra_args }}
+    shell: bash
