@@ -5,8 +5,3 @@ repos:
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
     -   id: check-yaml
--   repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.16.0
-    hooks:
-    -   id: eslint
-        args: [--fix]
