@@ -1,4 +1,4 @@
-**DEPRECATED** this action is in maintenance-only mode and will not be
+**DEPRECATED ** this action is in maintenance-only mode and will not be
 accepting new features.
 
 Please switch to using [pre-commit.ci] which is faster and has more features.
