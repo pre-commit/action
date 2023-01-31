@@ -1,7 +1,6 @@
-**DEPRECATED** this action is in maintenance-only mode and will not be
-accepting new features.
+this action is in maintenance-only mode and will not be accepting new features.
 
-Please switch to using [pre-commit.ci] which is faster and has more features.
+generally you want to use [pre-commit.ci] which is faster and has more features.
 
 [pre-commit.ci]: https://pre-commit.ci
 
