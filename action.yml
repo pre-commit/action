@@ -12,7 +12,7 @@ runs:
     shell: bash
   - run: python -m pip freeze --local
     shell: bash
-  - uses: actions/cache@v3
+  - uses: actions/cache@69d9d449aced6a2ede0bc19182fadc3a0a42d2b0 # actions/cache@v3.2.6
     with:
       path: ~/.cache/pre-commit
       key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
