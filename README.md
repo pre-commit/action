@@ -7,7 +7,7 @@ generally you want to use [pre-commit.ci] which is faster and has more features.
 ___
 
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/pre-commit/action/main.svg)](https://results.pre-commit.ci/latest/github/pre-commit/action/main)
-[![Build Status](https://github.com/pre-commit/action/workflows/main/badge.svg)](https://github.com/pre-commit/action/actions)
+[![Build Status](https://github.com/pre-commit/action/actions/workflows/main.yml/badge.svg)](https://github.com/pre-commit/action/actions)
 
 pre-commit/action
 =================
