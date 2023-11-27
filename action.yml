@@ -8,7 +8,7 @@ inputs:
 runs:
   using: composite
   steps:
-  - run: python -m pip install pre-commit
+  - run: python -m pip install "pre-commit>=3.5.0"
     shell: bash
   - run: python -m pip freeze --local
     shell: bash
