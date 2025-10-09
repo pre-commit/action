@@ -5,6 +5,10 @@ inputs:
     description: options to pass to pre-commit run
     required: false
     default: '--all-files'
+  enable_cache:
+    description: Whether to cache pre-commit hooks
+    required: false
+    default: 'true'
 runs:
   using: composite
   steps:
@@ -13,6 +17,7 @@ runs:
   - run: python -m pip freeze --local
     shell: bash
   - uses: actions/cache@v4
+    if: inputs.enable_cache == 'true'
     with:
       path: ~/.cache/pre-commit
       key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
