@@ -5,6 +5,10 @@ inputs:
     description: options to pass to pre-commit run
     required: false
     default: '--all-files'
+  shared-cache:
+    description: enable shared cache across branches
+    required: false
+    default: 'false'
 runs:
   using: composite
   steps:
@@ -15,6 +19,10 @@ runs:
   - uses: actions/cache@v4
     with:
       path: ~/.cache/pre-commit
+      # Key matches pre-commit action format: pre-commit-3|pythonLocation|configHash
+      # The restore-key will find caches from ANY branch with the same Python location and config hash
+      # This allows sharing caches across branches when .pre-commit-config.yaml hasn't changed
       key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
+      restore-keys: ${{ inputs.shared-cache == 'true' && format('pre-commit-3|{0}|{1}', env.pythonLocation, hashFiles('.pre-commit-config.yaml')) || '' }}
   - run: pre-commit run --show-diff-on-failure --color=always ${{ inputs.extra_args }}
     shell: bash
