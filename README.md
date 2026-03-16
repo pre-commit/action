@@ -22,6 +22,9 @@ template to get started:
 ```yaml
 name: pre-commit
 
+permissions:
+  contents: read
+
 on:
   pull_request:
   push:
